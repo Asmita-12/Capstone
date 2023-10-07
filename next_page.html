@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Page</title>
+</head>
+<body>
+    <h1>Selected ISO Code: {{ selected_iso }}</h1>
+
+    <!-- Display the image -->
+    <img src="data:image/png;base64,{{ image }}" alt="Word Frequency Plot" />
+
+    <!-- Display the processed data (optional) -->
+    <div>
+        <h2>Processed Data</h2>
+        <ul>
+            {% for key, value in freqs_data.items() %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

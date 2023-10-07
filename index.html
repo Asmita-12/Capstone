@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Countries with ISO Codes</title>
+</head>
+<body>
+    <h1>Unique Countries with ISO Codes</h1>
+    <form method="POST" action="/store_iso">
+        <ul>
+            {% for country, iso_code in countries_with_iso %}
+                <li>
+                    <button type="submit" name="iso" value="{{ iso_code }}">{{ country }} ({{ iso_code }})</button>
+                </li>
+            {% endfor %}
+        </ul>
+    </form>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front Page</title>
+</head>
+<body>
+    <h1>Welcome to the Front Page</h1>
+    
+    <!-- Links to analysis options -->
+    <ul>
+        <li><a href="{{ url_for('word_analysis_topic_list') }}">Word Analysis</a></li>
+        <li><a href="{{ url_for('country_analysis') }}">Country Analysis</a></li>
+    </ul>
+</body>
+</html>

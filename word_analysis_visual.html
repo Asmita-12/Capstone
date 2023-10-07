@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Analysis Visualization</title>
+</head>
+<body>
+    <h1>Word Analysis for "{{ selected_topic }}"</h1>
+    
+    <!-- Display the Matplotlib plot image -->
+    <img src="data:image/png;base64, {{ image }}" alt="Word Frequency Plot">
+    
+    <!-- Display additional information or data -->
+    <div>
+        <h2>Word Frequencies Over Time:</h2>
+        <ul>
+            {% for frequency in frequencies %}
+                <li>{{ loop.index + 1970 }}: {{ frequency }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <!-- Add any other content you want to display -->
+    
+    <a href="/">Back to Home</a>
+</body>
+</html>
