@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 from word_analysis import get_topic_list, plot_word_frequency, load_word_frequencies
+import analysis_one_country, analysis_one_category
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -78,7 +79,47 @@ def store_iso():
     session['selected_iso_code'] = selected_iso
 
     # Pass the selected ISO code as a query parameter
-    return redirect(url_for('visualize', iso_code=selected_iso))
+    return redirect(url_for('analysis_options', iso_code=selected_iso))
+
+@app.route('/analysis_options/<iso_code>', methods=['GET', 'POST'])
+def analysis_options(iso_code):
+    if request.method == 'POST':
+        selected_option = request.form.get('analysis_option')
+        if selected_option == 'topic_analysis':
+            return redirect(url_for('topic_analysis', iso_code=iso_code))
+        elif selected_option == 'visualize':
+            return redirect(url_for('visualize', iso_code=iso_code))
+        else:
+            # Handle invalid option
+            return "Invalid analysis option selected."
+    return render_template('analysis_options.html')
+
+@app.route('/topic_analysis/<iso_code>', methods=['GET', 'POST'])
+def topic_analysis(iso_code):
+    if request.method == 'POST':
+        selected_category = request.form.get('category')
+        filtered_dataset = analysis_one_country.plot_category(selected_category, analysis_one_category.word_frequencies)
+
+        if filtered_dataset is not None:
+            # Generate a plot using the filtered dataset
+            plt.figure(figsize=(16, 8))
+            filtered_dataset.plot(title=selected_category.capitalize())
+            plt.xlabel("Years")
+            plt.ylabel("Frequency")
+
+            # Save the plot to a BytesIO object
+            buffer = BytesIO()
+            plt.savefig(buffer, format='png')
+            buffer.seek(0)
+            plt.close()
+
+            # Encode the Matplotlib plot image data as base64
+            image_data = base64.b64encode(buffer.read()).decode('utf-8')
+
+            return render_template('topic_analysis_results.html', image=image_data)
+
+    return render_template('topic_analysis.html')
+
 
 @app.route('/visualize')
 def visualize():
