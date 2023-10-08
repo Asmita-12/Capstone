@@ -36,10 +36,7 @@ def plot_category(category, freqs_df):
     filtered_data = freqs_df[freqs_df['word'].isin(words)].iloc[:, 1:47].transpose().iloc[1:]
 
     # Plot the data
-    filtered_data.plot(title=title, figsize=(16, 8))
-    plt.xlabel("Years")
-    plt.ylabel("Frequency")
-    #plt.show()
+    return filtered_data
 
 # Call the function with the desired category (e.g., 'terrorism')
 plot_category('terrorism', analysis_one_category.word_frequencies)
